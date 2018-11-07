@@ -39,6 +39,11 @@ module.exports.getUserById = function(id,callback){
     User.findById(id,callback);
 }
 
+module.exports.getLevelByUsername = function(username,callback){
+    var query = User.findOne({username:username});
+    return query;
+}
+
 module.exports.comparePassword = function(candidatePassword,hash,callback){
     bcrypt.compare(candidatePassword, hash, function(err, isMatch) {
         if(err) throw err;

@@ -19,6 +19,9 @@ router.get('/app/apm',ensureAuthenticated,proxy(opts));
 //Get Monitoring
 router.get('/app/monitoring',ensureAuthenticated,proxy(opts));
 
+router.get('/app/graph',ensureAuthenticated,proxy(opts));
+router.get('/app/ml',ensureAuthenticated,proxy(opts));
+
 function ensureAuthenticated(req,res,next){
     if(req.isAuthenticated())
         return next();

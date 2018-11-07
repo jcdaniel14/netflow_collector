@@ -41,7 +41,7 @@ var opts = {
 //DB Variables
 var mongo = require("mongodb");
 var mongoose = require("mongoose");
-mongoose.connect('mongodb://localhost/sso',{ useNewUrlParser: true });
+mongoose.connect('mongodb://admin:MonG00s3$!@localhost/sso',{ useNewUrlParser: true });
 var db = mongoose.connection;
 
 
@@ -94,10 +94,12 @@ app.use(session({
     secret:'mapacheonlyauthorizeduser',
     cookie: {
         secure:true,
-        httpOnly:true
+        httpOnly:true,
+	maxAge: 7200000
     },
     saveUninitialized:true,
-    resave:true
+    resave:true,
+    expires: 9600
 }));
 
 //Passport init
@@ -151,8 +153,9 @@ app.use(function(req,res,next){
 //Set Port
 //app.set('port', (process.env.PORT || 80));
 https.createServer({
-    key: fs.readFileSync('certs/nginx.key'),
-    cert: fs.readFileSync('certs/nginx.crt')
+    ca: fs.readFileSync('certs/netflow.ca-bundle'),
+    key: fs.readFileSync('certs/netflow.key'),
+    cert: fs.readFileSync('certs/netflow.crt')
 }, app).listen(443,function(){
     console.log('Server Started at port 443!');
 });
